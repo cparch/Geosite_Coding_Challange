@@ -2,25 +2,43 @@ import React from 'react';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker} from 'react-google-maps';
 import * as locationData from './data/locationData.json';
 
-function Map (){
-  return(
-    <GoogleMap 
-      defaultZoom={13} 
-      defaultCenter={{lat: 37.543829, lng: -122.009618}}
-    > 
+class Map extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {locationNames: [
+      `Chad Archila's Current Home`, 
+      `Your Mechanic`, 
+      `Chad's 3rd to last residence`, 
+      `Chad's second to last residence`, 
+      `Robert Half`,
+      `ProTransport`
+    ]};
+  }
 
-    {locationData.features.map((location) => (
-      <Marker
-        key={location.properties.LOCATION_ID}
-        position={{
-          lat: location.geometry.coordinates[1],
-          lng: location.geometry.coordinates[0]
-        }}
-      />
-    ))}
-
-    </GoogleMap>
-  );
+  render(){
+    return(
+      <div>
+        <GoogleMap 
+          defaultZoom={13} 
+          defaultCenter={{lat: 37.543829, lng: -122.009618}}
+        > 
+  
+        {locationData.features.map((location) => (
+          
+          <Marker
+            key={location.properties.LOCATION_ID}
+            position={{
+              lat: location.geometry.coordinates[1],
+              lng: location.geometry.coordinates[0]
+            }}
+          />
+        ))}
+  
+        </GoogleMap>
+        <div>TEST</div>
+      </div>
+    );
+  }
 }
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
