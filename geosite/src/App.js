@@ -1,6 +1,7 @@
 import React from 'react';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker} from 'react-google-maps';
 import * as locationData from './data/locationData.json';
+import LocationList from './LocationList';
 
 class Map extends React.Component {
   constructor(props){
@@ -12,7 +13,15 @@ class Map extends React.Component {
       `Chad's second to last residence`, 
       `Robert Half`,
       `ProTransport`
-    ]};
+    ],
+    selectedLocation: '',
+    };
+
+    this.locationClickHandler = this.locationClickHandler.bind(this);
+  }
+
+  locationClickHandler(event){
+    this.setState({selectedLocation: event.target.innerText})
   }
 
   render(){
@@ -35,7 +44,11 @@ class Map extends React.Component {
         ))}
   
         </GoogleMap>
-        <div>TEST</div>
+        <LocationList 
+          locationNames = {this.state.locationNames}
+          locationClickHandler ={this.locationClickHandler}
+
+        />
       </div>
     );
   }
